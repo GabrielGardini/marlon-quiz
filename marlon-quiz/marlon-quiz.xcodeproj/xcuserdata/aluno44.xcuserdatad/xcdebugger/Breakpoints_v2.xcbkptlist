@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "93A5E0CF-0BD4-4AD5-B745-AA1CF337E336"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AC57F0DF-3C03-4FB9-9ED5-48F47F3407B0"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "marlon-quiz/ContentView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
+            landmarkName = "ThirdView"
+            landmarkType = "14">
+            <Locations>
+               <Location
+                  uuid = "AC57F0DF-3C03-4FB9-9ED5-48F47F3407B0 - 5373e8152bfec95b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "marlon_quiz.ThirdView.init() -&gt; marlon_quiz.ThirdView"
+                  moduleName = "marlon-quiz"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aluno44/Documents/marlon-quiz/marlon-quiz/marlon-quiz/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "93"
+                  endingLineNumber = "93"
+                  offsetFromSymbolStart = "19">
+               </Location>
+               <Location
+                  uuid = "AC57F0DF-3C03-4FB9-9ED5-48F47F3407B0 - 7ad1726b6d8bce56"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "marlon_quiz.ThirdView.init(globalData: SwiftUI.EnvironmentObject&lt;marlon_quiz.GlobalData&gt;) -&gt; marlon_quiz.ThirdView"
+                  moduleName = "marlon-quiz"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aluno44/Documents/marlon-quiz/marlon-quiz/marlon-quiz/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "10">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "15FBAAB8-6EF9-4EBE-9596-D5A4F93F23F8"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "marlon-quiz/ContentView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "SecondView"
+            landmarkType = "14">
+            <Locations>
+               <Location
+                  uuid = "15FBAAB8-6EF9-4EBE-9596-D5A4F93F23F8 - b1287c055405e6f9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "marlon_quiz.SecondView.init() -&gt; marlon_quiz.SecondView"
+                  moduleName = "marlon-quiz"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aluno44/Documents/marlon-quiz/marlon-quiz/marlon-quiz/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35"
+                  offsetFromSymbolStart = "19">
+               </Location>
+               <Location
+                  uuid = "15FBAAB8-6EF9-4EBE-9596-D5A4F93F23F8 - b0e7bbc36fa694f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "marlon_quiz.SecondView.init(globalData: SwiftUI.EnvironmentObject&lt;marlon_quiz.GlobalData&gt;) -&gt; marlon_quiz.SecondView"
+                  moduleName = "marlon-quiz"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aluno44/Documents/marlon-quiz/marlon-quiz/marlon-quiz/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "10">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
