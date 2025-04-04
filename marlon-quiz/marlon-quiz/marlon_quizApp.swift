@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct marlon_quizApp: App {
+    @StateObject var globalData = GlobalData()
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationView {
+                ContentView().environmentObject(globalData)
+            }
         }
     }
 }

@@ -14,6 +14,8 @@
 		E7EDE48E2D9B074400C38888 /* marlon_quizTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7EDE48D2D9B074400C38888 /* marlon_quizTests.swift */; };
 		E7EDE4982D9B074400C38888 /* marlon_quizUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7EDE4972D9B074400C38888 /* marlon_quizUITests.swift */; };
 		E7EDE49A2D9B074400C38888 /* marlon_quizUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7EDE4992D9B074400C38888 /* marlon_quizUITestsLaunchTests.swift */; };
+		E7EDE4A72D9EBC8200C38888 /* click.m4a in Resources */ = {isa = PBXBuildFile; fileRef = E7EDE4A62D9EBC8200C38888 /* click.m4a */; };
+		E7EDE4A92D9EBDEF00C38888 /* Versions of Me (Cover).mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E7EDE4A82D9EBDEF00C38888 /* Versions of Me (Cover).mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +46,8 @@
 		E7EDE4932D9B074400C38888 /* marlon-quizUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "marlon-quizUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7EDE4972D9B074400C38888 /* marlon_quizUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = marlon_quizUITests.swift; sourceTree = "<group>"; };
 		E7EDE4992D9B074400C38888 /* marlon_quizUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = marlon_quizUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E7EDE4A62D9EBC8200C38888 /* click.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = click.m4a; sourceTree = "<group>"; };
+		E7EDE4A82D9EBDEF00C38888 /* Versions of Me (Cover).mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Versions of Me (Cover).mp3"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +78,8 @@
 		E7EDE4702D9B073800C38888 = {
 			isa = PBXGroup;
 			children = (
+				E7EDE4A82D9EBDEF00C38888 /* Versions of Me (Cover).mp3 */,
+				E7EDE4A62D9EBC8200C38888 /* click.m4a */,
 				E7EDE47B2D9B073800C38888 /* marlon-quiz */,
 				E7EDE48C2D9B074400C38888 /* marlon-quizTests */,
 				E7EDE4962D9B074400C38888 /* marlon-quizUITests */,
@@ -231,6 +237,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7EDE4A92D9EBDEF00C38888 /* Versions of Me (Cover).mp3 in Resources */,
+				E7EDE4A72D9EBC8200C38888 /* click.m4a in Resources */,
 				E7EDE4842D9B074300C38888 /* Preview Assets.xcassets in Resources */,
 				E7EDE4812D9B074300C38888 /* Assets.xcassets in Resources */,
 			);

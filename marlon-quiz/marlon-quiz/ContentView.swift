@@ -1,15 +1,56 @@
 import SwiftUI
+import AVFoundation
+
 
 // Classe para armazenar a variável global
 class GlobalData: ObservableObject {
     @Published var selectedValue: String = "Nenhum"
+    
+    var player: AVAudioPlayer?
+
+    
+    func prepareSound(name: String, ext:String) {
+        if let soundURL = Bundle.main.url(forResource: name, withExtension: ext) {
+            do {
+                player = try AVAudioPlayer(contentsOf: soundURL)
+                player?.prepareToPlay()
+                print("Sound file loaded successfully")
+            } catch {
+                print("Error loading sound file: \(error.localizedDescription)")
+            }
+        } else {
+            print("Sound file not found")
+        }
+    }
+    
 }
 
+let chavesImagens: [Character: String] = [
+    "a": "imageA",
+    "b": "imageB",
+    "c": "imageC",
+    "d": "imageA",
+    "e": "imageB",
+    "f": "borboleta",
+    "g": "imageA",
+    "h": "imageB",
+    "i": "imageC",
+    "j": "imageA",
+    "k": "imageB",
+    "l": "imageC",
+    "m": "imageA",
+    "n": "imageB",
+    "o": "imageC",
+    "p": "imageA"
+]
+
+
 struct ContentView: View {
-    @StateObject var globalData = GlobalData() // Criamos a instância da classe GlobalData
+    @EnvironmentObject var globalData: GlobalData // Criamos a instância da classe GlobalData
+
 
     var body: some View {
-        NavigationView {
+       // NavigationView {
             VStack {
                 Text("Tela Inicial")
                     .font(.largeTitle)
@@ -27,12 +68,16 @@ struct ContentView: View {
                         .cornerRadius(10)
                 }
             }
-        }
+        //}
     }
 }
 
 struct SecondView: View {
     @EnvironmentObject var globalData: GlobalData
+    
+    var player: AVAudioPlayer?
+
+
 
     var body: some View {
         VStack {
@@ -52,7 +97,7 @@ struct SecondView: View {
                     .cornerRadius(10)
             }
             .simultaneousGesture(TapGesture().onEnded {
-                globalData.selectedValue = "Botão 1 clicado"
+                globalData.selectedValue = "a"
             })
 
             NavigationLink(destination: ThirdView().environmentObject(globalData)) {
@@ -63,7 +108,7 @@ struct SecondView: View {
                     .cornerRadius(10)
             }
             .simultaneousGesture(TapGesture().onEnded {
-                globalData.selectedValue = "Botão 2 clicado"
+                globalData.selectedValue = "b"
             })
             NavigationLink(destination: ThirdView().environmentObject(globalData)) {
                 Text("Coffee Break")
@@ -73,7 +118,7 @@ struct SecondView: View {
                     .cornerRadius(10)
             }
             .simultaneousGesture(TapGesture().onEnded {
-                globalData.selectedValue = "Botão 3 clicado"
+                globalData.selectedValue = "c"
             })
             NavigationLink(destination: ThirdView().environmentObject(globalData)) {
                 Text("Competição de ping pong")
@@ -83,14 +128,23 @@ struct SecondView: View {
                     .cornerRadius(10)
             }
             .simultaneousGesture(TapGesture().onEnded {
-                globalData.selectedValue = "Botão 4 clicado"
+                globalData.selectedValue = "d"
             })
-        }
+        }.onAppear(perform:{
+            globalData.prepareSound(name: "click",ext:"m4a")
+            globalData.player?.play()})
+
     }
 }
 
 struct ThirdView: View {
     @EnvironmentObject var globalData: GlobalData
+    
+    
+    init() {
+        print("Estou passando por aqui - 3rd view")
+    }
+
 
     var body: some View {
         VStack {
@@ -110,7 +164,7 @@ struct ThirdView: View {
                     .cornerRadius(10)
             }
             .simultaneousGesture(TapGesture().onEnded {
-                globalData.selectedValue = globalData.selectedValue+"Botão 1 clicado"
+                globalData.selectedValue = globalData.selectedValue+"e"
             })
 
             NavigationLink(destination: FourthView().environmentObject(globalData)) {
@@ -121,7 +175,7 @@ struct ThirdView: View {
                     .cornerRadius(10)
             }
             .simultaneousGesture(TapGesture().onEnded {
-                globalData.selectedValue = "Botão 2 clicado"
+                globalData.selectedValue = globalData.selectedValue+"f"
             })
             NavigationLink(destination: FourthView().environmentObject(globalData)) {
                 Text("Sair com a família")
@@ -131,7 +185,7 @@ struct ThirdView: View {
                     .cornerRadius(10)
             }
             .simultaneousGesture(TapGesture().onEnded {
-                globalData.selectedValue = "Botão 3 clicado"
+                globalData.selectedValue = globalData.selectedValue+"g"
             })
             NavigationLink(destination: FourthView().environmentObject(globalData)) {
                 Text("Ler")
@@ -141,7 +195,7 @@ struct ThirdView: View {
                     .cornerRadius(10)
             }
             .simultaneousGesture(TapGesture().onEnded {
-                globalData.selectedValue = "Botão 4 clicado"
+                globalData.selectedValue = globalData.selectedValue+"h"
             })
         }
     }
@@ -168,7 +222,7 @@ struct FourthView: View {
                     .cornerRadius(10)
             }
             .simultaneousGesture(TapGesture().onEnded {
-                globalData.selectedValue = globalData.selectedValue+"Botão 1 clicado"
+                globalData.selectedValue = globalData.selectedValue+"i"
             })
 
             NavigationLink(destination: FifthView().environmentObject(globalData)) {
@@ -179,7 +233,7 @@ struct FourthView: View {
                     .cornerRadius(10)
             }
             .simultaneousGesture(TapGesture().onEnded {
-                globalData.selectedValue = "Botão 2 clicado"
+                globalData.selectedValue = globalData.selectedValue+"j"
             })
             NavigationLink(destination: FifthView().environmentObject(globalData)) {
                 Text("Ansiedade")
@@ -189,7 +243,7 @@ struct FourthView: View {
                     .cornerRadius(10)
             }
             .simultaneousGesture(TapGesture().onEnded {
-                globalData.selectedValue = "Botão 3 clicado"
+                globalData.selectedValue = globalData.selectedValue+"k"
             })
             NavigationLink(destination: FifthView().environmentObject(globalData)) {
                 Text("Curiosidade")
@@ -199,7 +253,7 @@ struct FourthView: View {
                     .cornerRadius(10)
             }
             .simultaneousGesture(TapGesture().onEnded {
-                globalData.selectedValue = "Botão 4 clicado"
+                globalData.selectedValue = globalData.selectedValue+"l"
             })
         }
     }
@@ -226,7 +280,7 @@ struct FifthView: View {
                     .cornerRadius(10)
             }
             .simultaneousGesture(TapGesture().onEnded {
-                globalData.selectedValue = globalData.selectedValue+"Botão 1 clicado"
+                globalData.selectedValue = globalData.selectedValue+"m"
             })
 
             NavigationLink(destination: ResultView().environmentObject(globalData)) {
@@ -237,7 +291,7 @@ struct FifthView: View {
                     .cornerRadius(10)
             }
             .simultaneousGesture(TapGesture().onEnded {
-                globalData.selectedValue = "Botão 2 clicado"
+                globalData.selectedValue = globalData.selectedValue+"n"
             })
             NavigationLink(destination: ResultView().environmentObject(globalData)) {
                 Text("Nuggets")
@@ -245,9 +299,10 @@ struct FifthView: View {
                     .background(Color.green)
                     .foregroundColor(.white)
                     .cornerRadius(10)
+                    .frame(width: 450, height: 50)
             }
             .simultaneousGesture(TapGesture().onEnded {
-                globalData.selectedValue = "Botão 3 clicado"
+                globalData.selectedValue = globalData.selectedValue+"o"
             })
             NavigationLink(destination: ResultView().environmentObject(globalData)) {
                 Text("Quibe")
@@ -257,7 +312,7 @@ struct FifthView: View {
                     .cornerRadius(10)
             }
             .simultaneousGesture(TapGesture().onEnded {
-                globalData.selectedValue = "Botão 4 clicado"
+                globalData.selectedValue = globalData.selectedValue+"p"
             })
         }
     }
@@ -265,17 +320,60 @@ struct FifthView: View {
 
 struct ResultView: View {
     @EnvironmentObject var globalData: GlobalData
+    var player: AVAudioPlayer?
 
+    init() {
+        if let soundURL = Bundle.main.url(forResource: "Versions of Me (Cover)", withExtension: "mp3") {
+            do {
+                player = try AVAudioPlayer(contentsOf: soundURL)
+                player?.prepareToPlay()
+                print("Sound file loaded successfully")
+            } catch {
+                print("Error loading sound file: \(error.localizedDescription)")
+            }
+        } else {
+            print("Sound file not found")
+        }
+    }
+    
+    func randomCharacter(from text: String) -> Character? {
+        let strippedText = text.trimmingCharacters(in: .whitespacesAndNewlines) // Remove espaços e quebras de linha
+        guard !strippedText.isEmpty else { return nil } // Verifica se a string não está vazia
+        
+        let characters = Array(strippedText) // Converte para um array de caracteres
+        return characters.randomElement() // Retorna um caractere aleatório
+    }
+
+    var fotoEscolhida: Character? {
+        randomCharacter(from: globalData.selectedValue)
+    }
     var body: some View {
         VStack {
+            Image(chavesImagens[fotoEscolhida!] ?? "macarrao")
+                .resizable() // Permite redimensionar
+                .scaledToFit() // Ajusta a imagem proporcionalmente ao espaço disponível
+                .frame(width: 250, height: 250).onAppear(perform: {globalData.prepareSound(name: "Versions of Me (Cover)", ext:"mp3")
+                    globalData.player?.play()})
             Text("Resultado")
                 .font(.largeTitle)
                 .padding()
+            
+            Text(globalData.selectedValue)
+                .font(.largeTitle)
+                .padding()
+            
+            if let foto = fotoEscolhida {
+                Text(String(foto)) // ✅ Convertendo Character para String
+                    .font(.largeTitle)
+                    .padding()
+            } else {
+                Text("Nenhum caractere disponível")
+                    .font(.title)
+                    .padding()
+            }
         }
     }
 }
-
-
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
