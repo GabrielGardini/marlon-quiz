@@ -1,6 +1,7 @@
 {
   "images" : [
     {
+      "filename" : "sinuca.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
