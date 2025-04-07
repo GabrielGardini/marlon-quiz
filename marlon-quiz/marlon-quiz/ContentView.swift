@@ -26,22 +26,22 @@ class GlobalData: ObservableObject {
 }
 
 let chavesImagens: [Character: String] = [
-    "a": "imageA",
-    "b": "imageB",
-    "c": "imageC",
-    "d": "imageA",
-    "e": "imageB",
+    "a": "votando",
+    "b": "coup",
+    "c": "voando",
+    "d": "pingpong",
+    "e": "ditador",
     "f": "borboleta",
-    "g": "imageA",
-    "h": "imageB",
-    "i": "imageC",
-    "j": "imageA",
-    "k": "imageB",
-    "l": "imageC",
-    "m": "imageA",
-    "n": "imageB",
-    "o": "imageC",
-    "p": "imageA"
+    "g": "papai",
+    "h": "lendo",
+    "i": "metropoly",
+    "j": "concentrado",
+    "k": "estudando",
+    "l": "espelho",
+    "m": "macarrao",
+    "n": "guardanapo",
+    "o": "sinuca",
+    "p": "macbook"
 ]
 
 
@@ -275,35 +275,42 @@ struct FifthView: View {
             NavigationLink(destination: ResultView().environmentObject(globalData)) {
                 Text("Macarrão")
                     .padding()
+                    .frame(width: 200)
                     .background(Color.green)
                     .foregroundColor(.white)
                     .cornerRadius(10)
             }
             .simultaneousGesture(TapGesture().onEnded {
                 globalData.selectedValue = globalData.selectedValue+"m"
-            })
+            }).background(Color.red)
 
             NavigationLink(destination: ResultView().environmentObject(globalData)) {
                 Text("Guardanapos")
                     .padding()
+                    .frame(width: 200, height:40)
                     .background(Color.green)
                     .foregroundColor(.white)
                     .cornerRadius(10)
+                    
             }
             .simultaneousGesture(TapGesture().onEnded {
                 globalData.selectedValue = globalData.selectedValue+"n"
-            })
+            }).background(Color.red)
+            
+                
+            
             NavigationLink(destination: ResultView().environmentObject(globalData)) {
                 Text("Nuggets")
                     .padding()
                     .background(Color.green)
                     .foregroundColor(.white)
                     .cornerRadius(10)
-                    .frame(width: 450, height: 50)
+                    
             }
             .simultaneousGesture(TapGesture().onEnded {
                 globalData.selectedValue = globalData.selectedValue+"o"
             })
+
             NavigationLink(destination: ResultView().environmentObject(globalData)) {
                 Text("Quibe")
                     .padding()
@@ -314,7 +321,7 @@ struct FifthView: View {
             .simultaneousGesture(TapGesture().onEnded {
                 globalData.selectedValue = globalData.selectedValue+"p"
             })
-        }
+        }.background(Color("#9cdc97"))
     }
 }
 
@@ -346,7 +353,9 @@ struct ResultView: View {
 
     var fotoEscolhida: Character? {
         randomCharacter(from: globalData.selectedValue)
+        
     }
+
     var body: some View {
         VStack {
             Image(chavesImagens[fotoEscolhida!] ?? "macarrao")
