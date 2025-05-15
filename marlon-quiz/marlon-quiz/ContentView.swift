@@ -1,15 +1,13 @@
 import SwiftUI
 import AVFoundation
 
-
 // Classe para armazenar a variável global
 class GlobalData: ObservableObject {
     @Published var selectedValue: String = "Nenhum"
     
     var player: AVAudioPlayer?
-
     
-    func prepareSound(name: String, ext:String) {
+    func prepareSound(name: String, ext: String) {
         if let soundURL = Bundle.main.url(forResource: name, withExtension: ext) {
             do {
                 player = try AVAudioPlayer(contentsOf: soundURL)
@@ -22,7 +20,6 @@ class GlobalData: ObservableObject {
             print("Sound file not found")
         }
     }
-    
 }
 
 let chavesImagens: [Character: String] = [
@@ -44,291 +41,213 @@ let chavesImagens: [Character: String] = [
     "p": "macbook"
 ]
 
-
 struct ContentView: View {
-    @EnvironmentObject var globalData: GlobalData // Criamos a instância da classe GlobalData
-
-
+    @EnvironmentObject var globalData: GlobalData
+    
     var body: some View {
-       // NavigationView {
-            VStack {
-                Text("Tela Inicial")
-                    .font(.largeTitle)
-                    .padding()
+        VStack {
+            //            Text("Marlon App")
+            //                .font(.largeTitle)
+            //                .padding()
+            Spacer().frame(height: 40)
+            Text("Marlon App")
+                .font(.system(size: 40, weight: .black, design: .default))
+                .foregroundColor(.green)
+                .padding(.horizontal, 20)
+                .padding(.vertical, 10)
+                .background(
+                    Color.white
+                )                                                              // fundo degradê
+                .cornerRadius(8)                                              // cantos arredondados
+                .shadow(color: Color.black.opacity(0.4), radius: 4, x: 2, y: 2) // sombra para “levantar” o texto
+            
+            
+            Spacer()
 
-                Text("Valor Selecionado: \(globalData.selectedValue)")
-                    .font(.headline)
+            Text("Descubra qual Marlon você seria!")
+                .font(.title)
+                .padding()
+            Spacer()
+            NavigationLink(destination: SecondView().environmentObject(globalData)) {
+                Text("Começar")
                     .padding()
-
-                NavigationLink(destination: SecondView().environmentObject(globalData)) {
-                    Text("Ir para a Segunda Tela")
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
+                    .frame(width: 200)
+                    .foregroundColor(.black)
+                    .background(Color.white)
+                    .cornerRadius(5)
             }
-        //}
+            Text("Criado por Gardini e Sofia")
+                .font(.headline)
+                .padding()
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.green)
+        .ignoresSafeArea()
     }
 }
 
 struct SecondView: View {
     @EnvironmentObject var globalData: GlobalData
     
-    var player: AVAudioPlayer?
-
-
-
     var body: some View {
-        VStack {
-            Text("Se você fosse embaixador do Academy, o que você faria?")
+        VStack(spacing: 20) {
+            Text("Se você fosse embaixador do Academy, qual evento você faria?")
                 .font(.title2)
                 .padding()
+            
+            
+            Group {
+                makeButton(title: "Hopi Hari!", value: "a")
+                makeButton(title: "Karaokê", value: "b")
+                makeButton(title: "Coffee Break", value: "c")
+                makeButton(title: "Competição de ping pong", value: "d")
+            }
+        }
+        .onAppear {
+            globalData.prepareSound(name: "click", ext: "m4a")
+            globalData.player?.play()
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.green)
+        .ignoresSafeArea()
+    }
     
-            Text("Valor Atual: \(globalData.selectedValue)")
-                .font(.headline)
+    @ViewBuilder
+    private func makeButton(title: String, value: String) -> some View {
+        NavigationLink(destination: ThirdView().environmentObject(globalData)) {
+            Text(title)
                 .padding()
-
-            NavigationLink(destination: ThirdView().environmentObject(globalData)) {
-                Text("Hopi Hari!")
-                    .padding()
-                    .background(Color.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-            }
-            .simultaneousGesture(TapGesture().onEnded {
-                globalData.selectedValue = "a"
-            })
-
-            NavigationLink(destination: ThirdView().environmentObject(globalData)) {
-                Text("Karaokê")
-                    .padding()
-                    .background(Color.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-            }
-            .simultaneousGesture(TapGesture().onEnded {
-                globalData.selectedValue = "b"
-            })
-            NavigationLink(destination: ThirdView().environmentObject(globalData)) {
-                Text("Coffee Break")
-                    .padding()
-                    .background(Color.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-            }
-            .simultaneousGesture(TapGesture().onEnded {
-                globalData.selectedValue = "c"
-            })
-            NavigationLink(destination: ThirdView().environmentObject(globalData)) {
-                Text("Competição de ping pong")
-                    .padding()
-                    .background(Color.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-            }
-            .simultaneousGesture(TapGesture().onEnded {
-                globalData.selectedValue = "d"
-            })
-        }.onAppear(perform:{
-            globalData.prepareSound(name: "click",ext:"m4a")
-            globalData.player?.play()})
-
+                .frame(width: 200)
+                .foregroundColor(.black)
+                .background(Color.white)
+                .cornerRadius(5)
+        }
+        .simultaneousGesture(TapGesture().onEnded {
+            globalData.selectedValue = value
+        })
     }
 }
 
 struct ThirdView: View {
     @EnvironmentObject var globalData: GlobalData
     
-    
     init() {
-        print("Estou passando por aqui - 3rd view")
     }
-
-
+    
     var body: some View {
-        VStack {
+        VStack(spacing: 20) {
             Text("O que você prefere fazer no seu tempo livre?")
-                .font(.largeTitle)
+                .font(.title2)
                 .padding()
-
-            Text("Valor Atual: \(globalData.selectedValue)")
-                .font(.headline)
-                .padding()
-
-            NavigationLink(destination: FourthView().environmentObject(globalData)) {
-                Text("Sair com os amigos")
-                    .padding()
-                    .background(Color.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
+            
+            Group {
+                makeButton(title: "Sair com os amigos", suffix: "e")
+                makeButton(title: "Contemplar a natureza", suffix: "f")
+                makeButton(title: "Sair com a família", suffix: "g")
+                makeButton(title: "Ler", suffix: "h")
             }
-            .simultaneousGesture(TapGesture().onEnded {
-                globalData.selectedValue = globalData.selectedValue+"e"
-            })
-
-            NavigationLink(destination: FourthView().environmentObject(globalData)) {
-                Text("Contemplar a natureza")
-                    .padding()
-                    .background(Color.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-            }
-            .simultaneousGesture(TapGesture().onEnded {
-                globalData.selectedValue = globalData.selectedValue+"f"
-            })
-            NavigationLink(destination: FourthView().environmentObject(globalData)) {
-                Text("Sair com a família")
-                    .padding()
-                    .background(Color.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-            }
-            .simultaneousGesture(TapGesture().onEnded {
-                globalData.selectedValue = globalData.selectedValue+"g"
-            })
-            NavigationLink(destination: FourthView().environmentObject(globalData)) {
-                Text("Ler")
-                    .padding()
-                    .background(Color.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-            }
-            .simultaneousGesture(TapGesture().onEnded {
-                globalData.selectedValue = globalData.selectedValue+"h"
-            })
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.green)
+        .ignoresSafeArea()
+    }
+    
+    @ViewBuilder
+    private func makeButton(title: String, suffix: String) -> some View {
+        NavigationLink(destination: FourthView().environmentObject(globalData)) {
+            Text(title)
+                .padding()
+                .frame(width: 200)
+                .foregroundColor(.black)
+                .background(Color.white)
+                .cornerRadius(5)
+        }
+        .simultaneousGesture(TapGesture().onEnded {
+            globalData.selectedValue += suffix
+        })
     }
 }
 
 struct FourthView: View {
     @EnvironmentObject var globalData: GlobalData
-
+    
     var body: some View {
-        VStack {
+        VStack(spacing: 20) {
             Text("Escolha uma emoção que tem sido frequente na sua vida")
                 .font(.title2)
                 .padding()
-
-            Text("Valor Atual: \(globalData.selectedValue)")
-                .font(.headline)
-                .padding()
-
-            NavigationLink(destination: FifthView().environmentObject(globalData)) {
-                Text("Felicidade")
-                    .padding()
-                    .background(Color.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
+            
+            
+            Group {
+                emotionButton(title: "Felicidade", suffix: "i")
+                emotionButton(title: "Raiva", suffix: "j")
+                emotionButton(title: "Ansiedade", suffix: "k")
+                emotionButton(title: "Curiosidade", suffix: "l")
             }
-            .simultaneousGesture(TapGesture().onEnded {
-                globalData.selectedValue = globalData.selectedValue+"i"
-            })
-
-            NavigationLink(destination: FifthView().environmentObject(globalData)) {
-                Text("Raiva")
-                    .padding()
-                    .background(Color.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-            }
-            .simultaneousGesture(TapGesture().onEnded {
-                globalData.selectedValue = globalData.selectedValue+"j"
-            })
-            NavigationLink(destination: FifthView().environmentObject(globalData)) {
-                Text("Ansiedade")
-                    .padding()
-                    .background(Color.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-            }
-            .simultaneousGesture(TapGesture().onEnded {
-                globalData.selectedValue = globalData.selectedValue+"k"
-            })
-            NavigationLink(destination: FifthView().environmentObject(globalData)) {
-                Text("Curiosidade")
-                    .padding()
-                    .background(Color.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-            }
-            .simultaneousGesture(TapGesture().onEnded {
-                globalData.selectedValue = globalData.selectedValue+"l"
-            })
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.green)
+        .ignoresSafeArea()
+    }
+    
+    @ViewBuilder
+    private func emotionButton(title: String, suffix: String) -> some View {
+        NavigationLink(destination: FifthView().environmentObject(globalData)) {
+            Text(title)
+                .padding()
+                .frame(width: 200)
+                .foregroundColor(.black)
+                .background(Color.white)
+                .cornerRadius(5)
+        }
+        .simultaneousGesture(TapGesture().onEnded {
+            globalData.selectedValue += suffix
+        })
     }
 }
 
 struct FifthView: View {
     @EnvironmentObject var globalData: GlobalData
-
+    
     var body: some View {
-        VStack {
-            Text("Comida favorita do bandeco")
-                .font(.largeTitle)
+        VStack(spacing: 20) {
+            Text("Qual sua comida favorita do bandeco?")
+                .font(.title2)
                 .padding()
-
-            Text("Valor Atual: \(globalData.selectedValue)")
-                .font(.headline)
+            
+            
+            Group {
+                foodButton(title: "Macarrão", suffix: "m")
+                foodButton(title: "Guardanapos", suffix: "n")
+                foodButton(title: "Nuggets", suffix: "o")
+                foodButton(title: "Quibe", suffix: "p")
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.green)
+        .ignoresSafeArea()
+    }
+    
+    @ViewBuilder
+    private func foodButton(title: String, suffix: String) -> some View {
+        NavigationLink(destination: ResultView().environmentObject(globalData)) {
+            Text(title)
                 .padding()
-
-            NavigationLink(destination: ResultView().environmentObject(globalData)) {
-                Text("Macarrão")
-                    .padding()
-                    .frame(width: 200)
-                    .background(Color.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-            }
-            .simultaneousGesture(TapGesture().onEnded {
-                globalData.selectedValue = globalData.selectedValue+"m"
-            }).background(Color.red)
-
-            NavigationLink(destination: ResultView().environmentObject(globalData)) {
-                Text("Guardanapos")
-                    .padding()
-                    .frame(width: 200, height:40)
-                    .background(Color.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                    
-            }
-            .simultaneousGesture(TapGesture().onEnded {
-                globalData.selectedValue = globalData.selectedValue+"n"
-            }).background(Color.red)
-            
-                
-            
-            NavigationLink(destination: ResultView().environmentObject(globalData)) {
-                Text("Nuggets")
-                    .padding()
-                    .background(Color.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                    
-            }
-            .simultaneousGesture(TapGesture().onEnded {
-                globalData.selectedValue = globalData.selectedValue+"o"
-            })
-
-            NavigationLink(destination: ResultView().environmentObject(globalData)) {
-                Text("Quibe")
-                    .padding()
-                    .background(Color.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-            }
-            .simultaneousGesture(TapGesture().onEnded {
-                globalData.selectedValue = globalData.selectedValue+"p"
-            })
-        }.background(Color("#9cdc97"))
+                .frame(width: 200)
+                .foregroundColor(.black)
+                .background(Color.white)
+                .cornerRadius(5)
+        }
+        .simultaneousGesture(TapGesture().onEnded {
+            globalData.selectedValue += suffix
+        })
     }
 }
 
 struct ResultView: View {
     @EnvironmentObject var globalData: GlobalData
     var player: AVAudioPlayer?
-
+    
     init() {
         if let soundURL = Bundle.main.url(forResource: "Versions of Me (Cover)", withExtension: "mp3") {
             do {
@@ -344,48 +263,56 @@ struct ResultView: View {
     }
     
     func randomCharacter(from text: String) -> Character? {
-        let strippedText = text.trimmingCharacters(in: .whitespacesAndNewlines) // Remove espaços e quebras de linha
-        guard !strippedText.isEmpty else { return nil } // Verifica se a string não está vazia
-        
-        let characters = Array(strippedText) // Converte para um array de caracteres
-        return characters.randomElement() // Retorna um caractere aleatório
+        let strippedText = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !strippedText.isEmpty else { return nil }
+        return Array(strippedText).randomElement()
     }
-
+    
     var fotoEscolhida: Character? {
         randomCharacter(from: globalData.selectedValue)
-        
     }
-
+    
     var body: some View {
-        VStack {
-            Image(chavesImagens[fotoEscolhida!] ?? "macarrao")
-                .resizable() // Permite redimensionar
-                .scaledToFit() // Ajusta a imagem proporcionalmente ao espaço disponível
-                .frame(width: 250, height: 250).onAppear(perform: {globalData.prepareSound(name: "Versions of Me (Cover)", ext:"mp3")
-                    globalData.player?.play()})
-            Text("Resultado")
-                .font(.largeTitle)
-                .padding()
-            
-            Text(globalData.selectedValue)
-                .font(.largeTitle)
-                .padding()
-            
-            if let foto = fotoEscolhida {
-                Text(String(foto)) // ✅ Convertendo Character para String
-                    .font(.largeTitle)
-                    .padding()
-            } else {
-                Text("Nenhum caractere disponível")
-                    .font(.title)
+        VStack() {
+            if let foto = fotoEscolhida,
+               let imageName = chavesImagens[foto] {
+                Image(imageName)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 300, height: 300)
                     .padding()
             }
+            
+            Text("Este é seu Marlon interior e será seu guia espiritual daqui pra frente. Aceite-o em toda sua glória.")
+                .font(.headline)
+                .padding()
+            NavigationLink(destination: ContentView().environmentObject(globalData)) {
+                            Text("Tela inicial")
+                                .padding()
+                                .frame(width: 200)
+                                .foregroundColor(.black)
+                                .background(Color.white)
+                                .cornerRadius(5)
+                        }
+                        .simultaneousGesture(TapGesture().onEnded {
+                            globalData.selectedValue = ""
+                        })
+            
         }
+        .onAppear {
+            globalData.prepareSound(name: "Versions of Me (Cover)", ext: "mp3")
+            globalData.player?.play()
+        }
+//        .padding(50)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.green)
+        .ignoresSafeArea()
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView().environmentObject(GlobalData())
     }
 }
+
